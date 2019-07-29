@@ -90,7 +90,25 @@ public class ProductImageController {
         ProductImage bean = productImageService.get(id);
         productImageService.delete(id);
 
+        String folder = "img/";
+        if (ProductImageService.type_single.equals(bean.getType()))
+            folder += "productSingle";
+        else
+            folder += "productDetail";
 
+        File imageFolder = new File(request.getServletContext().getRealPath(folder));
+        File file = new File(imageFolder, bean.getId()+".jpg");
+        String fileName = file.getName();
+        file.delete();
+
+        if (ProductImageService.type_single.equals(bean.getType())) {
+            String imageFolder_small = request.getServletContext().getRealPath("img/productSingle_small");
+            String imageFolder_middle= request.getServletContext().getRealPath("img/productSingle_middle");
+            File f_small = new File(imageFolder_small, fileName);
+            File f_middle = new File(imageFolder_middle, fileName);
+            f_small.delete();
+            f_middle.delete();
+        }
+        return null;
     }
-
 }
