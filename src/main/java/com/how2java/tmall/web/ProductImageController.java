@@ -31,7 +31,7 @@ public class ProductImageController {
     public List<ProductImage> list(@RequestParam("type") String type, @PathVariable("pid") int pid) throws Exception {
         Product product = productService.get(pid);
 
-        if (ProductImageService.type_detail.equals(type)) {
+        if (ProductImageService.type_single.equals(type)) {
             List<ProductImage> singles = productImageService.listSingleProductImages(product);
             return singles;
         }
