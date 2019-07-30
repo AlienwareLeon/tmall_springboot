@@ -383,7 +383,7 @@ div.copyright {
 	background-color: black;
 	border-top-style: solid;
 	border-top-width: 2px;
-	/*border-top-color: solid;*/
+	border-top-color: solid;
 	border-top-color: #C40000;
 	margin-top:20px;
 
@@ -621,7 +621,7 @@ div.productUnit span.productReview {
 div.productUnit a.productLink {
 	margin: 10px 0px;
 	color: #333333;
-	font-size: 0.8em;
+	font: 0.8em;
 	display: block;
 }
 
@@ -633,7 +633,7 @@ div.productUnit a.productLink:hover {
 div.productUnit a.tmallLink {
 	margin: 10px 0px;
 	color: #999999;
-	font-size: 0.8em;
+	font: 0.8em;
 	display: block;
 	text-decoration: underline;
 }
@@ -1026,8 +1026,7 @@ span.productReviewTopReviewLinkNumber {
 }
 
 div.productDetailImagesPart img {
-	display: block;
-	margin: 20px 0px;
+	display: block; margin 20px 0px;
 	width: 790px;
 }
 
@@ -1317,13 +1316,13 @@ textarea.leaveMessageTextarea {
 }
 
 span.leaveMessageText {
-	display: inline-block;
+	display: inilne-block;
 	margin-right: 10px;
 	float: left;
 }
 
 span.leaveMessageTextareaSpan {
-	display: inline-block;
+	display: inilne-block;
 }
 
 div.orderItemTotalSumDiv {
@@ -1609,7 +1608,7 @@ div.cartFoot button {
 	background-color: #AAAAAA;
 	border: 0px solid #AAAAAA;
 	color: white;
-	height: 100%;
+	height: height%;
 	width: 120px;
 	height: 50px;
 	font-size: 20px;

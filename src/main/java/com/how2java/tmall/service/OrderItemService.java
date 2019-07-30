@@ -14,6 +14,10 @@ public class OrderItemService {
     OrderItemDAO orderItemDAO;
     @Autowired ProductImageService productImageService;
 
+    public void fill(List<Order> orders) {
+        for (Order order : orders)
+            fill(order);
+    }
     public void fill(Order order) {
         List<OrderItem> orderItems = listByOrder(order);
         float total = 0;
