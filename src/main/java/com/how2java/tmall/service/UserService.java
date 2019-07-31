@@ -28,6 +28,10 @@ public class UserService {
         return userDAO.findByName(name);
     }
 
+    public User get(String name, String password) {
+        return userDAO.getByNameAndPassword(name,password);
+    }
+
     public Page4Navigator<User> list(int start, int size, int navigatePages) {
         Sort sort = new Sort(Sort.Direction.DESC, "id");
         Pageable pageable = new PageRequest(start, size,sort);
