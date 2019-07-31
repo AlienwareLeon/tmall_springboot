@@ -5,32 +5,32 @@
 <body>
 <div th:replace="include/admin/adminNavigator::html" ></div>
 <script>
-    $(function () {
+    $(function(){
         var data4Vue = {
             uri: 'products',
-            listURL: 'admin_product_list',
+            listURL:'admin_product_list',
             bean: '',
-            category: ''
+            category:''
         };
 
         //ViewModel
         var vue = new Vue({
             el: '#workingArea',
             data: data4Vue,
-            mounted: function () { //表示对象加载成功
+            mounted:function(){ //mounted　表示这个 Vue 对象加载成功了
                 this.get();
             },
             methods: {
-                get: function () {
-                    var id = getUrlParms("id")
+                get:function(){
+                    var id = getUrlParms("id");
                     var url = this.uri+"/"+id;
-                    axios.get(url).then(function (response) {
+                    axios.get(url).then(function(response) {
                         vue.bean = response.data;
                         vue.category = vue.bean.category;
                     })
                 },
-                update: function () {
-                    if (!checkEmpty(this.bean.name, "产品名称"))
+                update:function () {
+                    if(!checkEmpty(this.bean.name, "产品名称"))
                         return;
                     if (!checkEmpty(this.bean.subTitle, "小标题"))
                         return;
@@ -38,9 +38,11 @@
                         return;
                     if (!checkNumber(this.bean.promotePrice, "优惠价格"))
                         return;
+                    if (!checkInt(this.bean.stock, "库存"))
+                        return;
                     var url = this.uri;
-                    axios.put(url, vue.bean).then(function (response) {
-                        location.href = vue.listURL + "?cid=" + vue.category.id;
+                    axios.put(url,vue.bean).then(function(response){
+                        location.href=vue.listURL+"?cid="+vue.category.id;
                     });
                 }
             }
@@ -55,6 +57,8 @@
         <li><a :href="'admin_product_list?cid='+category.id">{{category.name}}</a></li>
         <li class="active">产品管理</li>
     </ol>
+
+
 
     <div class="panel panel-warning editDiv">
         <div class="panel-heading">编辑产品</div>
@@ -98,3 +102,8 @@
 <div th:replace="include/admin/adminFooter::html" ></div>
 </body>
 </html>
+
+
+
+
+

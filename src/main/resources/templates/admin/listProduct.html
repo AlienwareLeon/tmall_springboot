@@ -4,40 +4,40 @@
 <body>
 <div th:replace="include/admin/adminNavigator::html" ></div>
 <script>
-    $(function () {
+    $(function(){
         var cid = getUrlParms("cid");
         var data4Vue = {
-            uri: 'products' ,
+            uri:'products',
             beans: [],
             bean: {id:0,name:'','subTitle':'','originalPrice':99.98,'promotePrice':19.98,'stock':99,category:{'id':0}},
-            pagination: {},
-            category: ''
+            pagination:{},
+            category:''
         };
 
         //ViewModel
         var vue = new Vue({
             el: '#workingArea',
             data: data4Vue,
-            mounted: function () { //mounted表示这个vue对象加载成功了
+            mounted:function(){ //mounted　表示这个 Vue 对象加载成功了
                 this.list(0);
                 this.getCategory(cid);
             },
             methods: {
-                getCategory: function (cid) {
-                    var url = "categories/" + cid;
-                    axios.get(url).then(function (response) {
+                getCategory:function(cid){
+                    var url = "categories/"+cid;
+                    axios.get(url).then(function(response) {
                         vue.category = response.data;
                     })
                 },
-                list: function (start) {
+                list:function(start){
                     var url =  "categories/"+cid+"/"+this.uri+"?start="+start;
-                    axios.get(url).then(function (response) {
+                    axios.get(url).then(function(response) {
                         vue.pagination = response.data;
-                        vue.beans = response.data.content;
+                        vue.beans = response.data.content	;
                     });
                 },
                 add: function () {
-                    if (!checkEmpty(this.bean.name, "产品名称"))
+                    if(!checkEmpty(this.bean.name, "产品名称"))
                         return;
                     if (!checkEmpty(this.bean.subTitle, "小标题"))
                         return;
@@ -49,33 +49,36 @@
                         return;
 
                     var url = this.uri;
-                    this.bean.category.id = cid;
-                    axios.post(url,this.bean).then(function (response) {
+                    this.bean.category.id=cid;
+                    axios.post(url,this.bean).then(function(response){
                         vue.list(0);
                         vue.bean =  {id:0,name:'','subTitle':'','originalPrice':99.98,'promotePrice':19.98,'stock':99,category:{'id':0}};
                     });
                 },
                 deleteBean: function (id) {
-                    if (!checkDeleteLink())
+                    if(!checkDeleteLink())
                         return;
                     var url = this.uri+"/"+id;
-                    axios.delete(url).then(function (response) {
-                        if (0!=response.data.length)
+                    axios.delete(url).then(function(response){
+                        if(0!=response.data.length)
                             alert(response.data);
                         else
                             vue.list(0);
                     });
                 },
-                jump: function (page) {
+                jump: function(page){
                     jump(page,vue); //定义在adminHeader.html 中
                 },
-                jumpByNumber: function (start) {
+                jumpByNumber: function(start){
                     jumpByNumber(start,vue);
                 }
             }
+
         });
     });
+
 </script>
+
 <div id="workingArea" >
     <ol class="breadcrumb">
         <li><a href="admin_category_list">所有分类</a></li>
@@ -161,6 +164,8 @@
                     <td><input  @keyup.enter="add" v-model.trim="bean.stock"  type="text"
                                 class="form-control"></td>
                 </tr>
+
+
 
                 <tr class="submitTR">
                     <td colspan="2" align="center">

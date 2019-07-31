@@ -5,33 +5,39 @@
 <body>
 <div th:replace="include/admin/adminNavigator::html" ></div>
 <script>
-    $(function () {
+    $(function(){
 
         var data4Vue = {
-            uri: 'users',
+            uri:'users',
             beans: [],
-            pagination: {}
+            pagination:{}
         };
 
         //ViewModel
         var vue = new Vue({
             el: '#workingArea',
             data: data4Vue,
-            mounted: function () { //mounted表示这个Vue对象加载成功了
-                var url = this.uri+ "?start=" + start;
-                axios.get(url).then(function (response) {
-                    vue.pagination = response.data;
-                    vue.beans = response.data.content;
-                });
+            mounted:function(){ //mounted　表示这个 Vue 对象加载成功了
+                this.list(0);
             },
-            jump: function (page) {
-                jump(page,vue); //定义在adminHeader.html中
-            },
-            jumpByNumber: function (start) {
-                jumpByNumber(start,vue);
+            methods: {
+                list:function(start){
+                    var url =  this.uri+ "?start="+start;
+                    axios.get(url).then(function(response) {
+                        vue.pagination = response.data;
+                        vue.beans = response.data.content	;
+                    });
+                },
+                jump: function(page){
+                    jump(page,vue); //定义在adminHeader.html 中
+                },
+                jumpByNumber: function(start){
+                    jumpByNumber(start,vue);
+                }
             }
         });
     });
+
 </script>
 
 <div id="workingArea" >
@@ -58,7 +64,11 @@
         </table>
     </div>
 
-<div th:replace="include/admin/adminPage::html" ></div>
+    <div th:replace="include/admin/adminPage::html" ></div>
+
+
 </div>
+
+<div th:replace="include/admin/adminFooter::html" ></div>
 </body>
 </html>
