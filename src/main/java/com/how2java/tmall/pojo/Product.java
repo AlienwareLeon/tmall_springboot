@@ -41,13 +41,13 @@ public class Product {
     @Transient
     private ProductImage firstProductImage;
     @Transient
-    private List<ProductImage> productSingleImages;
+    private List<ProductImage> productSingleImages;//单个产品图片集合
     @Transient
-    private List<ProductImage> productDetailImages;
+    private List<ProductImage> productDetailImages;//详情产品图片集合
     @Transient
-    private int reviewCount;
+    private int reviewCount;//累计评价
     @Transient
-    private int saleCount;
+    private int saleCount;//销量
 
     public int getId() {
         return id;

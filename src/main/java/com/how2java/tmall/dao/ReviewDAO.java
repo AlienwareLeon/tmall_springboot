@@ -13,3 +13,9 @@ public interface ReviewDAO extends JpaRepository<Review,Integer>{
     int countByProduct(Product product);
 
 }
+
+/*
+* 查询方法：
+* 返回某产品对应的评价集合
+* 返回某产品对应的评价数量
+* */
