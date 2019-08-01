@@ -8,6 +8,7 @@ import com.how2java.tmall.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.Date;
 
 @RestController
@@ -27,7 +28,7 @@ public class OrderController {
         return page;
     }
     @PutMapping("deliveryOrder/{oid}")
-    public Object deliveryOrder(@PathVariable int oid) throws Exception {
+    public Object deliveryOrder(@PathVariable int oid) throws IOException {
         Order o = orderService.get(oid);
         o.setDeliveryDate(new Date());
         o.setStatus(OrderService.waitConfirm);

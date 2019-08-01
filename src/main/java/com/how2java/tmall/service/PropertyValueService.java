@@ -34,7 +34,7 @@ public class PropertyValueService {
     }
 
     public PropertyValue getByPropertyAndProduct(Product product, Property property) {
-        return propertyValueDAO.getByPropertyAndAndProduct(property,product);
+        return propertyValueDAO.getByPropertyAndProduct(property,product);
     }
 
     public List<PropertyValue> list(Product product) {

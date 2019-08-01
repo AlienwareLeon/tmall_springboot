@@ -1,39 +1,48 @@
 package com.how2java.tmall.util;
 
-import org.springframework.data.domain.Page;
-
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 public class Page4Navigator<T> {
-    Page<T> pageFromJPA;//jpa的分页对象
+    Page<T> pageFromJPA;
+    int navigatePages;
 
-    int navigatePages;//分页超链个数
+    int totalPages;
 
-    int totalPages;//总页面数
-    int number;//第几页基于0
-    long totalElements;//总数据条数
-    int size;//一页有多少数据
-    int numberOfElements;//当前页有多少条数据
-    List<T> content;//数据集合
-    boolean isHasContent;//是否有数据
-    boolean first;//是否是首页
-    boolean last;//是否是末页
-    boolean isHasNext;//是否有下一页
-    boolean isHasPrevious;//是否有上一页
-    int[] navigatepageNums;//分页的时候 ,如果总页数比较多，那么显示出来的分页超链一个有几个。 比如如果分页出来的超链是这样的： [8,9,10,11,12]，那么 navigatepageNums 就是这个数组：[8,9,10,11,12]，便于前端展示
+    int number;
 
+    long totalElements;
+
+    int size;
+
+    int numberOfElements;
+
+    List<T> content;
+
+    boolean isHasContent;
+
+    boolean first;
+
+    boolean last;
+
+    boolean isHasNext;
+
+    boolean isHasPrevious;
+
+    int[] navigatepageNums;
 
     public Page4Navigator() {
-        //这个空的分页是为了Redis，从JSON格式转换为Page4Navigator 对象而专门提供
+        //这个空的分页是为了 Redis 从 json格式转换为 Page4Navigator 对象而专门提供的
     }
 
-    public Page4Navigator(Page<T> pageFromJPA, int navigatePages) {
+    public Page4Navigator(Page<T> pageFromJPA,int navigatePages) {
         this.pageFromJPA = pageFromJPA;
         this.navigatePages = navigatePages;
 
         totalPages = pageFromJPA.getTotalPages();
 
-        number = pageFromJPA.getNumber();
+        number  = pageFromJPA.getNumber() ;
 
         totalElements = pageFromJPA.getTotalElements();
 
@@ -47,35 +56,38 @@ public class Page4Navigator<T> {
 
         first = pageFromJPA.isFirst();
 
+        last = pageFromJPA.isLast();
+
         isHasNext = pageFromJPA.hasNext();
 
-        isHasPrevious = pageFromJPA.hasPrevious();
+        isHasPrevious  = pageFromJPA.hasPrevious();
 
         calcNavigatepageNums();
+
     }
 
     private void calcNavigatepageNums() {
         int navigatepageNums[];
         int totalPages = getTotalPages();
         int num = getNumber();
-        //当总页数小于或等于导航页码时
+        //当总页数小于或等于导航页码数时
         if (totalPages <= navigatePages) {
             navigatepageNums = new int[totalPages];
-            for (int i = 0;i < totalPages; i++){
-                navigatepageNums[i] = i+1;
+            for (int i = 0; i < totalPages; i++) {
+                navigatepageNums[i] = i + 1;
             }
-        }else { //当总页数大于导航页码数时
+        } else { //当总页数大于导航页码数时
             navigatepageNums = new int[navigatePages];
-            int startNum = num - navigatePages /2;
-            int endNum = num + navigatePages /2;
+            int startNum = num - navigatePages / 2;
+            int endNum = num + navigatePages / 2;
 
             if (startNum < 1) {
                 startNum = 1;
-                //最前navigatePages页
+                //(最前navigatePages页
                 for (int i = 0; i < navigatePages; i++) {
-                    navigatepageNums[i] =startNum++;
+                    navigatepageNums[i] = startNum++;
                 }
-            }else if (endNum > totalPages) {
+            } else if (endNum > totalPages) {
                 endNum = totalPages;
                 //最后navigatePages页
                 for (int i = navigatePages - 1; i >= 0; i--) {
@@ -83,20 +95,12 @@ public class Page4Navigator<T> {
                 }
             } else {
                 //所有中间页
-                for (int i = 0; i < navigatePages; i++){
+                for (int i = 0; i < navigatePages; i++) {
                     navigatepageNums[i] = startNum++;
                 }
             }
         }
         this.navigatepageNums = navigatepageNums;
-    }
-
-    public Page<T> getPageFromJPA() {
-        return pageFromJPA;
-    }
-
-    public void setPageFromJPA(Page<T> pageFromJPA) {
-        this.pageFromJPA = pageFromJPA;
     }
 
     public int getNavigatePages() {
@@ -159,8 +163,8 @@ public class Page4Navigator<T> {
         return isHasContent;
     }
 
-    public void setHasContent(boolean hasContent) {
-        isHasContent = hasContent;
+    public void setHasContent(boolean isHasContent) {
+        this.isHasContent = isHasContent;
     }
 
     public boolean isFirst() {
@@ -183,16 +187,16 @@ public class Page4Navigator<T> {
         return isHasNext;
     }
 
-    public void setHasNext(boolean hasNext) {
-        isHasNext = hasNext;
+    public void setHasNext(boolean isHasNext) {
+        this.isHasNext = isHasNext;
     }
 
     public boolean isHasPrevious() {
         return isHasPrevious;
     }
 
-    public void setHasPrevious(boolean hasPrevious) {
-        isHasPrevious = hasPrevious;
+    public void setHasPrevious(boolean isHasPrevious) {
+        this.isHasPrevious = isHasPrevious;
     }
 
     public int[] getNavigatepageNums() {
@@ -202,4 +206,5 @@ public class Page4Navigator<T> {
     public void setNavigatepageNums(int[] navigatepageNums) {
         this.navigatepageNums = navigatepageNums;
     }
+
 }

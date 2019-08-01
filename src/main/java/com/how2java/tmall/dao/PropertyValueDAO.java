@@ -9,5 +9,5 @@ import java.util.List;
 
 public interface PropertyValueDAO extends JpaRepository<PropertyValue,Integer> {
     List<PropertyValue> findByProductOrderByIdDesc(Product product);
-    PropertyValue getByPropertyAndAndProduct(Property property, Product product);
+    PropertyValue getByPropertyAndProduct(Property property, Product product);
 }

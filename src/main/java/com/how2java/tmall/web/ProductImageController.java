@@ -85,7 +85,7 @@ public class ProductImageController {
         return bean;
     }
 
-    @DeleteMapping("/productImage/{id}")
+    @DeleteMapping("/productImages/{id}")
     public String delete(@PathVariable("id") int id, HttpServletRequest request) throws Exception {
         ProductImage bean = productImageService.get(id);
         productImageService.delete(id);

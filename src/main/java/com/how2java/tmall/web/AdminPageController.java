@@ -40,7 +40,7 @@ public class AdminPageController {
     }
 
     @GetMapping(value = "/admin_property_list")
-    public String listPorperty() {
+    public String listProperty() {
         return "admin/listProperty";
     }
 
@@ -49,12 +49,12 @@ public class AdminPageController {
         return "admin/editProperty";
     }
 
-    @GetMapping(value = "admin_propertyValue_edit")
+    @GetMapping(value = "/admin_propertyValue_edit")
     public String editPropertyValue() {
-        return "admin/editProperty_edit";
+        return "admin/editPropertyValue";
     }
 
-    @GetMapping(value = "admin_user_list")
+    @GetMapping(value = "/admin_user_list")
     public String listUser() {
         return "admin/listUser";
     }
