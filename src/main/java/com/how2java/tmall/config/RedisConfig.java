@@ -36,3 +36,11 @@ public class RedisConfig extends CachingConfigurerSupport {
 
     }
 }
+
+/**
+ * 配置 Redis, 这个配置的作用主要是使得保存在 redis 里的key和value转换为如图所示的具有可读性的字符串，
+ * 否则会是乱码，很不便于观察。
+
+ *
+ */
+/
