@@ -5,6 +5,12 @@ import com.how2java.tmall.pojo.*;
 import com.how2java.tmall.service.*;
 import com.how2java.tmall.util.Result;
 import org.apache.commons.lang.math.RandomUtils;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.crypto.SecureRandomNumberGenerator;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
@@ -52,11 +58,16 @@ public class ForeRESTController {
             String message ="用户名已经被使用,不能使用";
             return Result.fail(message);
         }
+        String salt = new SecureRandomNumberGenerator().nextBytes().toString();
+        int times = 2;
+        String alorithmName = "md5";
 
-        user.setPassword(password);
+        String encodedPassword = new SimpleHash(alorithmName,password,salt,times).toString();
+
+        user.setSalt(salt);
+        user.setPassword(encodedPassword);
 
         userService.add(user);
-
         return Result.success();
     }
 
@@ -65,15 +76,19 @@ public class ForeRESTController {
         String name =  userParam.getName();
         name = HtmlUtils.htmlEscape(name);
 
-        User user =userService.get(name,userParam.getPassword());
-        if(null==user){
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken token = new UsernamePasswordToken(name, userParam.getPassword());
+        try {
+            subject.login(token);
+            User user = userService.getByName(name);
+//          subject.getSession().setAttribute("user", user);
+            session.setAttribute("user", user);
+            return Result.success();
+        } catch (AuthenticationException e) {
             String message ="账号密码错误";
             return Result.fail(message);
         }
-        else{
-            session.setAttribute("user", user);
-            return Result.success();
-        }
+
     }
 
     @GetMapping("/foreproduct/{pid}")
@@ -99,9 +114,9 @@ public class ForeRESTController {
     }
 
     @GetMapping("forecheckLogin")
-    public Object checkLogin( HttpSession session) {
-        User user =(User)  session.getAttribute("user");
-        if(null!=user)
+    public Object checkLogin() {
+        Subject subject = SecurityUtils.getSubject();
+        if(subject.isAuthenticated())
             return Result.success();
         return Result.fail("未登录");
     }
@@ -334,5 +349,12 @@ public class ForeRESTController {
         review.setUser(user);
         reviewService.add(review);
         return Result.success();
+    }
+    @GetMapping("/forelogout")
+    public String logout() {
+        Subject subject = SecurityUtils.getSubject();
+        if (subject.isAuthenticated())
+            subject.logout();
+        return "redirect:home";
     }
 }
