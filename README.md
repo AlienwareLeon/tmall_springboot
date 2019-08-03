@@ -11,3 +11,5 @@ redis，nginx，elasticsearch，shiro
 MySQL的
 开发工具：
 Intellij IDEA，Maven，Git
+模板引擎：
+Thymeleaf
