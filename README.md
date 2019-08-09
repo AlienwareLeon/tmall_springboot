@@ -26,7 +26,7 @@
 ----------
 
 
-## 1. 分类管理CRUD
+## 1. 分类管理 CRUD
 
 ### EX:查询流程：/admin ——> AdminPageController(admin->admin_category_list->listCategory) ——> admin/listCategory.html——>http(js->ajax->categories) ——> CategoryController(categories->Mysql) ——(JSON)——> vue(v-for->tr)**
 	
@@ -35,6 +35,10 @@
 **pojo:**
 
 @Entity: **SpringBean,工厂模式，IOC**
+
+@Table(name = "category")：数据库表名
+
+@JsonIgnoreProperties:JSON忽略
 
 @GeneratedValue(strategy = GenerationType.IDENTITY) 主键自增长
 
@@ -50,13 +54,13 @@
 
 **web:**	
 
-@Controller: 控制类，数据通过**※RESTFUL**接口来取
+@Controller: 控制类，数据通过**※RESTFUL**接口来取，页面跳转
 
 @GetMapping(value="/admin")
 
 @RestController: 返回值转换为JSON格式
 
-@Autowired：自动装配service
+@Autowired：自动装配，引用指向装配类，**动态代理**
 
 @GetMapping("/categories") 访问categories，获取对象集合，以JSON格式返回集合，抛给浏览器前端，GETMAPPING其实就是做了获取，跳转的功能
 
