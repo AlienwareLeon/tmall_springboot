@@ -21,16 +21,16 @@
 
 
 
-#数据库表结构设计
+# 数据库表结构设计
 
 ----------
 
 
-##1. 分类管理CRUD
+## 1. 分类管理CRUD
 
-###EX:查询流程：/admin ——> AdminPageController(admin->admin_category_list->listCategory) ——> admin/listCategory.html——>http(js->ajax->categories) ——> CategoryController(categories->Mysql) ——(JSON)——> vue(v-for->tr)**
+### EX:查询流程：/admin ——> AdminPageController(admin->admin_category_list->listCategory) ——> admin/listCategory.html——>http(js->ajax->categories) ——> CategoryController(categories->Mysql) ——(JSON)——> vue(v-for->tr)**
 	
-###※注解
+### ※注解
 	
 **pojo:**
 
@@ -102,7 +102,7 @@ extends WebMvcConfigurerAdapter :允许所有请求跨域
     }
    
 
-###※分页 
+### ※分页 
 	Page4Navigator
 
 	//jpa 传递出来的分页对象， Page4Navigator 类就是对它进行封装以达到扩展的效果
