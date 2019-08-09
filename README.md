@@ -6,16 +6,16 @@
 
 **html，CSS，Javascript，JSON，AJAX，JQuery，Bootstrap，Vue.js,Thymeleaf**
 
-##后端：
+## 后端：
 **spring,springmvc,springboot**
 
-##中间件：
+## 中间件：
 **redis，nginx，elasticsearch，shiro**
 
-##数据库：
+## 数据库：
 **MySQL**
 
-##开发工具：
+## 开发工具：
 **Intellij IDEA，Maven，Git**
 	
 
