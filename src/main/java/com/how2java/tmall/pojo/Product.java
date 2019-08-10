@@ -19,7 +19,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name = "product")
 @JsonIgnoreProperties({ "handler","hibernateLazyInitializer"})
-@Document(indexName = "tmall_springboot",type = "product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
