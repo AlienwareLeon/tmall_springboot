@@ -19,7 +19,7 @@ public class User {
     private String salt;
 
     @Transient
-    private String anonymousName;
+    private String anonymousName;  //在评论里显示用户名称的时候，匿名用
 
     public int getId() {
         return id;

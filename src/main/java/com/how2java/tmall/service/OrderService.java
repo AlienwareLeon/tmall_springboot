@@ -105,7 +105,7 @@ public class OrderService {
     public void removeOrderFromOrderItem(Order order) {
         List<OrderItem> orderItems= order.getOrderItems();
         for (OrderItem orderItem : orderItems) {
-            orderItem.setOrder(null);
+            orderItem.setOrder(null);//相当于@JsonIgnoreProperties
         }
     }
 

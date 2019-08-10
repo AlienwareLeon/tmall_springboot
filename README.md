@@ -49,6 +49,8 @@
 ----------
 
 
+# 一、 后台管理
+
 ## 1. 后台分类(Category)管理 CRUD
 
 ### 以查询流程为例：
@@ -273,14 +275,9 @@ private Category category;
 **pojo**
     
     @ManyToOne
-     
     @JoinColumn(name="pid")
-     
     @JsonBackReference
-     
     private Product product;
-
-**dao**
 
 @Transient
 如果既没有指明关联到哪个Column,又没有明确要用@Transient忽略，那么就会自动关联到表对应的同名字段
@@ -292,4 +289,86 @@ jackson中的@JsonBackReference和@JsonManagedReference，以及@JsonIgnore均�
 
 前后端分离，而前后端数据交互用的是 json 格式。 那么 Category 对象就会被转换为 json 数据。 而本项目使用 jpa 来做实体类的持久化，jpa 默认会使用 hibernate, 在 jpa 工作过程中，就会创造代理类来继承 Category ，并添加 handler 和 hibernateLazyInitializer 这两个无须 json 化的属性，所以这里需要用 JsonIgnoreProperties 把这两个属性忽略掉。
 
-双向关联就是，产品里有分类，分类里有产品，产品里又有分类，分类里又有产品，无限循环了
+双向关联就是，产品里有分类，分类里有产品，产品里又有分类，分类里又有产品，无限循环
+
+**service**
+
+axios,js 上传图片要用 FormData 的方式
+
+**ProductController**
+
+productImageService.setFirstProdutImages(page.getContent()); 查询产品界面设置上图片
+
+
+## 5. 后台产品属性值（PropertyValue）管理CRUD
+
+**pojo**
+
+    @ManyToOne
+    @JoinColumn(name="pid")
+    private Product product;
+    
+	@ManyToOne 
+    @JoinColumn(name="ptid")   
+    private Property property;
+
+
+在创建表结构的时候，有外键约束，导致当存在从表数据的时候，主表数据无法被删除。
+
+假设即使有从表数据，主表也允许被删除，那么那些从表数据就变成脏数据了。
+
+对于这个问题通常有两种解决办法：
+
+1. 使用级联删除。即删除主表的时候，从表自动删除。 这样做在技术上最简单，但是在业务上最危险，不推荐。
+
+2. 删除有从表数据的主表时，提醒用户依然有从表数据，建议用户一条一条删除从表数据，再删除主表数据。 这样技术上无改动，业务上最安全。 建议采纳此种方案。
+
+附：主从表概念——以分类和产品而言，他们是一对多关系，分类就是主表，产品就是从表。
+
+## 6. 后台用户(User)管理
+
+**pojo**
+    @Transient
+    private String anonymousName;
+
+## 7. 后台订单(OrderItem)管理
+
+**pojo**    
+
+    @ManyToOne
+    @JoinColumn(name="pid")
+    private Product product;
+     
+    @ManyToOne
+    @JoinColumn(name="oid")
+    private Order order;
+     
+    @ManyToOne
+    @JoinColumn(name="uid")
+    private User user;
+
+
+
+**service**
+
+OrderItemService提供fill()方法对OrderItem的业务操作,从数据库中取出来的 Order 没有 OrderItem集合，这里通过 OrderItemDAO 取出来再放在 Order的 orderItems属性上
+
+OrderService提供了removeOrderFromOrderItem()方法，相当于 未用的@JsonIgnoreProperties，整合Redis标记@JsonIgnoreProperties会有BUG
+
+**util**
+
+Result统一的 REST响应对象,包含是否成功，错误信息，数据，方便前端人员识别和显示给用户可识别信息。
+
+
+----------
+
+# 二、前台-首页-无需登录
+
+
+
+
+
+----------
+
+# 三、前台-需要登陆
+
