@@ -107,6 +107,12 @@
 @Id 数据库列主键
 
 @Column(name = "id") 主键字段名称
+    
+    productsByRow这个属性的类型是List<List<Product>> 
+	
+	productsByRow即一个分类又对应多个 List<Product>
+
+	，提供属性，是为了在首页竖状导航的分类名称右边显示推荐产品列表相当于@JsonIgnore
 
 **service:**
 
@@ -270,6 +276,10 @@ ImageUtil
 @JoinColumn(name="cid")
 private Category category;
 
+**service**
+
+public void fillByRow(List<Category> categorys);
+为多个分类填充推荐产品集合，即把分类下的产品集合，按照8个为一行，拆成多行
 ## 4. 后台产品图片(ProductImage)管理
 
 **pojo**
@@ -363,6 +373,11 @@ Result统一的 REST响应对象,包含是否成功，错误信息，数据，�
 ----------
 
 # 二、前台-首页-无需登录
+
+**web**
+ForeRESTController：对应前台页面的路径
+
+ForePageController ：对应前台页面的跳转
 
 
 
