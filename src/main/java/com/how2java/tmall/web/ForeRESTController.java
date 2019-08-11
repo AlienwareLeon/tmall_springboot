@@ -60,9 +60,9 @@ public class ForeRESTController {
         }
         String salt = new SecureRandomNumberGenerator().nextBytes().toString();
         int times = 2;
-        String alorithmName = "md5";
+        String algorithmName = "md5";
 
-        String encodedPassword = new SimpleHash(alorithmName,password,salt,times).toString();
+        String encodedPassword = new SimpleHash(algorithmName,password,salt,times).toString();
 
         user.setSalt(salt);
         user.setPassword(encodedPassword);
@@ -116,9 +116,11 @@ public class ForeRESTController {
     @GetMapping("forecheckLogin")
     public Object checkLogin() {
         Subject subject = SecurityUtils.getSubject();
-        if(subject.isAuthenticated())
+        if(subject.isAuthenticated()) {
             return Result.success();
-        return Result.fail("未登录");
+        }else {
+            return Result.fail("未登录");
+        }
     }
     @GetMapping("forecategory/{cid}")
     public Object category(@PathVariable int cid,String sort) {
@@ -290,7 +292,7 @@ public class ForeRESTController {
         User user = (User) session.getAttribute("user");
         if (null==user)
             return Result.fail("未登录");
-        List<Order> os = orderService.listByUserAndNotDeleted(user);
+        List<Order> os = orderService.listByUserWithoutDelete(user);
         orderService.removeOrderFromOrderItem(os);
         return os;
     }
@@ -349,12 +351,5 @@ public class ForeRESTController {
         review.setUser(user);
         reviewService.add(review);
         return Result.success();
-    }
-    @GetMapping("/forelogout")
-    public String logout() {
-        Subject subject = SecurityUtils.getSubject();
-        if (subject.isAuthenticated())
-            subject.logout();
-        return "redirect:home";
     }
 }

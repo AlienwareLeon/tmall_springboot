@@ -1,10 +1,12 @@
 # 概要
-
+项目已经部署到阿里云：
 ----------
 基于springboot单体架构的商城项目，仓库trend_springcloud也有基于springcloud的微服务尝鲜项目。。。
 > 因为写代码过程中有了很多疑惑引申出了好多问题。。所以项目的一些技术原理值得土人用土话写文章总结和展望，例如mybaits和jpa的技术选型到到底啥是DDD，AOP，IOC，JDK动态代理，观察者模式，工厂模式，单例模式，单体架构到servermesh的发展到SOA和RPC究竟是什么，redis，ES搜索引擎分布式架构原理，数据库分库分表，数据库存储过程和读写分离，shiro权限应用。。。坑已经挖好，博客园会努力填坑。。。
+
+
 	
-单体架构到servermesh的发展：https://www.cnblogs.com/TeaPolyphenols/p/11330228.html
+>单体架构到servermesh的发展：https://www.cnblogs.com/TeaPolyphenols/p/11330228.html
 	
 	啥是SOA，啥是RPC:
 	
@@ -35,7 +37,7 @@
 **spring,springmvc,springboot**
 
 ## 中间件：
-**redis，nginx，elasticsearch，shiro**
+**redis，nginx，elasticsearch，shiro, docker**
 
 ## 数据库：
 **MySQL**
