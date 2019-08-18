@@ -5,25 +5,30 @@
 > 因为写代码过程中有了很多疑惑引申出了好多问题。。所以项目的一些技术原理值得土人用土话写文章总结和展望，例如mybaits和jpa的技术选型到到底啥是DDD，AOP，IOC，JDK动态代理，观察者模式，工厂模式，单例模式，单体架构到servermesh的发展到SOA和RPC究竟是什么，redis，ES搜索引擎分布式架构原理，数据库分库分表，数据库存储过程和读写分离，shiro权限应用。。。坑已经挖好，博客园会努力填坑。。。
 
 
-	
+----------
+>redis原理及简单应用:
+
+>ES搜索引擎架构原理及简单应用：
+
+>数据库分库分表，数据库存储过程、事务管理、读写分离、调优：
+
+>shiro权限应用:
+
 >单体架构到servermesh的发展：https://www.cnblogs.com/TeaPolyphenols/p/11330228.html
 	
-	啥是SOA，啥是RPC:
+>啥是SOA，啥是RPC:
 	
-	AOP:
-	
-	IOC:
-	
-	动态代理：
-	
-	工厂模式：
-	
-	观察者模式：
+>设计模式里的AOP、IOC、工厂模式、单例模式、观察者模式、动态管理、：
 
-	单例模式：
-	
+>SpringCloud组件的应用及DDD的微服务商城里的坑：
+
 >mybaits和jpa的技术选型到到底啥是DDD：https://www.cnblogs.com/TeaPolyphenols/p/11323783.html
 
+>全局异常：
+
+>日志：
+
+>单元测试：
 	
 # 技术栈 
 
